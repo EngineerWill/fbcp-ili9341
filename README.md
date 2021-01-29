@@ -1,3 +1,6 @@
+Project from [fbcp-ili9341](https://github.com/juj/fbcp-ili9341)
+I'll fix a few small bugs that affect usage
+
 # Introduction
 
 This repository implements a driver for certain SPI-based LCD displays for Raspberry Pi A, B, 2, 3, 4 and Zero.
