@@ -1,6 +1,5 @@
 
 * I'll fix a few small bugs that affect usage
-
 # Introduction
 
 This repository implements a driver for certain SPI-based LCD displays for Raspberry Pi A, B, 2, 3, 4 and Zero.
@@ -195,6 +194,15 @@ For example, if you used the command line steps listed above to build, the file 
 
 ```bash
 sudo /home/pi/fbcp-ili9341/build/fbcp-ili9341 &
+````
+Or simplify the path
+```bash
+sudo cp ~/fbcp-ili9341/build/fbcp-ili9341 /usr/local/bin/fbcp
+sudo nano /etc/rc.local
+````
+the file `/etc/rc.local` would receive a line
+```bash
+sudo fbcp &
 ````
 
 If the user name of your Raspberry Pi installation is something else than the default `pi`, change the directory accordingly to point to the user's home directory. (Use `pwd` to find out the current directory in terminal)
