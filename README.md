@@ -1,5 +1,5 @@
-
 * I'll fix a few small bugs that affect usage
+
 # Introduction
 
 This repository implements a driver for certain SPI-based LCD displays for Raspberry Pi A, B, 2, 3, 4 and Zero.
@@ -518,7 +518,6 @@ Second is the consideration about display speed. Below is a performance chart of
 
 | Vendor | Size | Resolution | Controller | Rated SPI Bus Speed | Obtained Bus Speed | Frame Rate |
 | ------ | ---- | ---------- | ---------- | ------------------- | ------------------ | -----------|
-
 | [Waveshare RPi LCD (B) IPS](https://www.amazon.co.uk/dp/B01N48NOXI/ref=pe_3187911_185740111_TE_item) | 3.5" | 320x480 | ILI9486 | 15.15MHz | 255MHz/8=31.88MHz | 12.97 fps |
 | [WaveShare 240x240 Display HAT](https://www.waveshare.com/1.3inch-lcd-hat.htm) | 1.3" | 240x240 | ST7789VW | 62.5MHz | 338MHz/4=84.50MHz | 91.69 fps |
 | [WaveShare 128x128 Display HAT](https://www.waveshare.com/1.44inch-lcd-hat.htm) | 1.44" | 128x128 | ST7735S | 15.15MHz | (untested) | (untested) |
