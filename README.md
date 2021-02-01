@@ -1,29 +1,18 @@
-* Forked from [juj/fbcp-ili9341](https://github.com/juj/fbcp-ili9341)
-* I'll fix a few small bugs that affect usage
 
+* I'll fix a few small bugs that affect usage
 
 # Introduction
 
 This repository implements a driver for certain SPI-based LCD displays for Raspberry Pi A, B, 2, 3, 4 and Zero.
 
-![PiTFT display](/example.jpg "Adafruit PiTFT 2.8 with ILI9341 controller")
 
 The work was motivated by curiosity after seeing this series of videos on the RetroManCave YouTube channel:
  - [RetroManCave: Waveshare 3.5" Raspberry Pi Screen | Review](https://www.youtube.com/watch?v=SGMC0t33C50)
  - [RetroManCave: Waveshare 3.2" vs 3.5" LCD screen gaming test | Raspberry Pi / RetroPie](https://www.youtube.com/watch?v=8bazEcXemiA)
- - [Elecrow 5 Inch LCD Review | RetroPie & Raspberry Pi](https://www.youtube.com/watch?v=8VgNBDMOssg)
 
 In these videos, the SPI (GPIO) bus is referred to being the bottleneck. SPI based displays update over a serial data bus, transmitting one bit per clock cycle on the bus. A 320x240x16bpp display hence requires a SPI bus clock rate of 73.728MHz to achieve a full 60fps refresh frequency. Not many SPI LCD controllers can communicate this fast in practice, but are constrained to e.g. a 16-50MHz SPI bus clock speed, capping the maximum update rate significantly. Can we do anything about this?
 
-The fbcp-ili9341 project started out as a display driver for the [Adafruit 2.8" 320x240 TFT w/ Touch screen for Raspberry Pi](https://www.adafruit.com/product/1601) display that utilizes the ILI9341 controller. On that display, fbcp-ili9341 can achieve a 60fps update rate, depending on the content that is being displayed. Check out these videos for examples of the driver in action:
-
- - [fbcp-ili9341 frame delivery smoothness test on Pi 3B and Adafruit ILI9341 at 119Hz](https://youtu.be/IqzKT33Rwjc)
- - [Latency and tearing test #2: GPIO input to display latency in fbcp-ili9341 and tearing modes](https://www.youtube.com/watch?v=EOICdpjiqv8)
- - [Latency and tearing test: KeDei 3.5" 320x480 HDMI vs Adafruit 2.8" PiTFT ILI9341 240x320 SPI](https://www.youtube.com/watch?v=1yvmvv0KtNs)
- - [fbcp-ili9341 ported to ILI9486 WaveShare 3.5" (B) SpotPear 320x480 SPI display](https://www.youtube.com/watch?v=dqOLIHOjLq4)
- - [Quake 60 fps inside Gameboy Advance (ILI9341)](https://www.youtube.com/watch?v=xmO8t3XlxVM)
- - First implementation of a statistics overlay: [fbcp-ili9341 SPI display driver on Adafruit PiTFT 2.8"](http://youtu.be/rKSH048XRjA)
- - Initial proof of concept video: [fbcp-ili9341 driver first demo](https://youtu.be/h1jhuR-oZm0)
+The fbcp-ili9341 project started out as a display driver for the display that utilizes the ILI9341 controller. On that display, fbcp-ili9341 can achieve a 60fps update rate, depending on the content that is being displayed. 
 
 ### How It Works
 
@@ -42,7 +31,7 @@ The result is that the SPI bus can be kept close to 100% saturation, ~94-97% usu
 ### Tested Devices
 
 The driver has been checked to work (at least some point in the past) on the following systems:
-
+ - Raspberry Pi 4 Model B with Raspbian Stretch (GCC 8.3.0)
  - Raspberry Pi 3 Model B+ with Raspbian Stretch (GCC 6.3.0)
  - Raspberry Pi 3 Model B Rev 1.2 with Raspbian Jessie (GCC 4.9.2) and Raspbian Stretch (GCC 6.3.0)
  - Raspberry Pi Zero W with Raspbian Jessie (GCC 4.9.2) and Raspbian Stretch (GCC 6.3.0)
@@ -55,20 +44,11 @@ although not all boards are actively tested on, so ymmv especially on older boar
 
 The following LCD displays have been tested:
 
- - [Adafruit 2.8" 320x240 TFT w/ Touch screen for Raspberry Pi](https://www.adafruit.com/product/1601) with ILI9341 controller
- - [Adafruit PiTFT 2.2" HAT Mini Kit - 320x240 2.2" TFT - No Touch](https://www.adafruit.com/product/2315) with ILI9340 controller
- - [Adafruit PiTFT - Assembled 480x320 3.5" TFT+Touchscreen for Raspberry Pi](https://www.adafruit.com/product/2097) with HX8357D controller
- - [Adafruit 128x96 OLED Breakout Board - 16-bit Color 1.27" w/microSD holder](https://www.adafruit.com/product/1673) with SSD1351 controller
  - [Waveshare 3.5inch RPi LCD (B) 320*480 Resolution Touch Screen IPS TFT Display](https://www.amazon.co.uk/dp/B01N48NOXI/ref=pe_3187911_185740111_TE_item) with ILI9486 controller
- - [maithoga 3.5 inch 8PIN SPI TFT LCD Color Screen with Adapter Board ILI9486](https://www.aliexpress.com/item/3-5-inch-8P-SPI-TFT-LCD-Color-Screen-Module-ILI9486-Drive-IC-320-480-RGB/32828284227.html) with **ILI9486L** controller
- - [BuyDisplay.com 320x480 Serial SPI 3.2"TFT LCD Module Display](https://www.buydisplay.com/default/serial-spi-3-2-inch-tft-lcd-module-display-ili9341-power-than-sainsmart) with ILI9341 controller
- - [Arduino A000096 1.77" 160x128 LCD Screen](https://store.arduino.cc/arduino-lcd-screen) with ST7735R controller
- - [Tontec 3.5" 320x480 LCD Display](https://www.ebay.com/p/Tontec-3-5-Inches-Touch-Screen-for-Raspberry-Pi-Display-TFT-Monitor-480x320-LCD/1649448059) with MZ61581-PI-EXT 2016.1.28 controller
- - [Adafruit 1.54" 240x240 Wide Angle TFT LCD Display with MicroSD](https://www.adafruit.com/product/3787) with ST7789 controller
+ - [Waveshare Raspberry Pi 4inch LCD 320 * 480 Resolution TFT Resistive Touch Display Screen](https://www.amazon.co.uk/Waveshare-Raspberry-LCD-Resistive-Interface/dp/B00Q4OPX9Y?ref_=ast_sto_dp) with ILI9486 controller
  - [WaveShare 240x240, 1.3inch IPS LCD display HAT for Raspberry Pi](https://www.waveshare.com/1.3inch-lcd-hat.htm) with ST7789VW controller
  - [WaveShare 128x128, 1.44inch LCD display HAT for Raspberry Pi](https://www.waveshare.com/1.44inch-lcd-hat.htm) with ST7735S controller
- - [KeDei 3.5 inch SPI TFTLCD 480*320 16bit/18bit version 6.3 2018/4/9](https://github.com/juj/fbcp-ili9341/issues/40) with MPI3501 controller
- - Unbranded 2.8" 320x240 display with ILI9340 controller
+
 
 ### Installation
 
@@ -89,7 +69,8 @@ Run in the console of your Raspberry Pi:
 ```bash
 sudo apt-get install cmake
 cd ~
-git clone https://github.com/juj/fbcp-ili9341.git
+wget https://www.waveshare.net/w/upload/2/2d/Fbcp-ili9341.7z
+7z x Fbcp-ili9341.7z
 cd fbcp-ili9341
 mkdir build
 cd build
@@ -114,14 +95,12 @@ On the CMake command line, the following options can be configured:
 
 When using one of the displays that stack on top of the Pi that are already recognized by fbcp-ili9341, you don't need to specify the GPIO pin assignments, but fbcp-ili9341 code already has those. Pass one of the following CMake directives for the hats:
 
-- `-DADAFRUIT_ILI9341_PITFT=ON`: If you are running on the [Adafruit 2.8" 320x240 TFT w/ Touch screen for Raspberry Pi](https://www.adafruit.com/product/1601) (or the [Adafruit PiTFT 2.2" HAT Mini Kit - 320x240 2.2" TFT - No Touch](https://www.adafruit.com/product/2315) display, which is compatible), pass this flag.
-- `-DADAFRUIT_HX8357D_PITFT=ON`: If you have the [Adafruit PiTFT - Assembled 480x320 3.5" TFT+Touchscreen for Raspberry Pi](https://www.adafruit.com/product/2097) display, add this line.
 - `-DFREEPLAYTECH_WAVESHARE32B=ON`: If you are running on the [Freeplay CM3 or Zero](https://www.freeplaytech.com/product/freeplay-cm3-diy-kit/) device, pass this flag. (this is not a hat, but still a preconfigured pin assignment)
 - `-DWAVESHARE35B_ILI9486=ON`: If specified, targets a [Waveshare 3.5" 480x320 ILI9486](https://www.amazon.co.uk/dp/B01N48NOXI/ref=pe_3187911_185740111_TE_item) display.
 - `-DTONTEC_MZ61581=ON`: If you are running on the [Tontec 3.5" 320x480 LCD Display](https://www.ebay.com/p/Tontec-3-5-Inches-Touch-Screen-for-Raspberry-Pi-Display-TFT-Monitor-480x320-LCD/1649448059) display, pass this.
 - `-DWAVESHARE_ST7789VW_HAT=ON`: If specified, targets a [240x240, 1.3inch IPS LCD display HAT for Raspberry Pi](https://www.waveshare.com/1.3inch-lcd-hat.htm) with ST7789VW display controller.
 - `-DWAVESHARE_ST7735S_HAT=ON`: If specified, targets a [128x128, 1.44inch LCD display HAT for Raspberry Pi](https://www.waveshare.com/1.3inch-lcd-hat.htm) with ST7735S display controller.
-- `-DKEDEI_V63_MPI3501=ON`: If specified, targets a [KeDei 3.5 inch SPI TFTLCD 480*320 16bit/18bit version 6.3 2018/4/9](https://github.com/juj/fbcp-ili9341/issues/40) display with MPI3501 display controller.
+
 
 ###### If you wired the display to the Pi yourself
 
@@ -183,21 +162,22 @@ In addition to the above CMake directives, there are various defines scattered a
 
 ##### Build example
 
-Here is a full example of what to type to build and run, if you have the [Adafruit 2.8" 320x240 TFT w/ Touch screen for Raspberry Pi](https://www.adafruit.com/product/1601) with ILI9341 controller:
+Here is a full example of what to type to build and run, if you have the [WaveShare 240x240, 1.3inch IPS LCD display HAT for Raspberry Pi](https://www.waveshare.com/1.3inch-lcd-hat.htm) with ST7789VW controller:
 
 ```bash
-cd ~
 sudo apt-get install cmake
-git clone https://github.com/juj/fbcp-ili9341.git
+cd ~
+wget https://www.waveshare.net/w/upload/2/2d/Fbcp-ili9341.7z
+7z x Fbcp-ili9341.7z
 cd fbcp-ili9341
 mkdir build
 cd build
-cmake -DSPI_BUS_CLOCK_DIVISOR=6 -DADAFRUIT_ILI9341_PITFT=ON ..
+cmake -DSPI_BUS_CLOCK_DIVISOR=10 -DWAVESHARE_ST7789VW_HAT=ON -DDMA_TX_CHANNEL=5 -DDMA_RX_CHANNEL=6 -DBACKLIGHT_CONTROL=ON -DSTATISTICS=0 ..
 make -j
 sudo ./fbcp-ili9341
 ```
 
-If the above does not work, try specifying `-DSPI_BUS_CLOCK_DIVISOR=8` or `=10` to make the display run a little slower, or try with `-DUSE_DMA_TRANSFERS=OFF` to troubleshoot if DMA might be the issue. If you are using another display controller than ILI9341, using a much higher value, like 30 or 40 may be needed. When changing CMake options, you can reissue the CMake directive line without having to reclone or recreate the `build` directory. However you may need to manually delete file CMakeCache.txt between changing options to avoid CMake remembering old settings.
+If the above does not work, try specifying `-DSPI_BUS_CLOCK_DIVISOR=14` or `=20` to make the display run a little slower, or try with `-DUSE_DMA_TRANSFERS=OFF` to troubleshoot if DMA might be the issue. If you are using another display controller than ILI9341, using a much higher value, like 30 or 40 may be needed. When changing CMake options, you can reissue the CMake directive line without having to reclone or recreate the `build` directory. However you may need to manually delete file CMakeCache.txt between changing options to avoid CMake remembering old settings.
 
 If you want to do a full rebuild from scratch, you can `rm -rf build` to delete the build directory and recreate it for a clean rebuild from scratch. There is nothing special about the name or location of this directory, it is just my usual convention. You can also do the build in some other directory relative to the fbcp-ili9341 directory if you please.
 
@@ -274,35 +254,31 @@ On the other hand, it is desirable to control how much CPU time fbcp-ili9341 is 
 
 ### About Input Latency
 
-A pleasing aspect of fbcp-ili9341 is that it introduces very little latency overhead: on a 119Hz refreshing ILI9341 display, [fbcp-ili9341 gets pixels as response from GPIO input to screen in well less than 16.66 msecs](https://www.youtube.com/watch?v=EOICdpjiqv8) time. I only have a 120fps recording camera, so can't easily measure delays shorter than that, but rough statistical estimate of slow motion video footage suggests this delay could be as low as 2-3 msecs, dominated by the ~8.4msecs panel refresh rate of the ILI9341.
+A pleasing aspect of fbcp-ili9341 is that it introduces very little latency overhead: on a 119Hz refreshing ILI9341 display, fbcp-ili9341 gets pixels as response from GPIO input to screen in well less than 16.66 msecs time. I only have a 120fps recording camera, so can't easily measure delays shorter than that, but rough statistical estimate of slow motion video footage suggests this delay could be as low as 2-3 msecs, dominated by the ~8.4msecs panel refresh rate of the ILI9341.
 
 This does not mean that overall input to display latency in games would be so immediate. Briefly testing a NES emulated game in Retropie suggests a total latency of about 60-80 msecs. This latency is caused by the NES game emulator overhead and extra latency added by Linux, DispmanX and GPU rendering, and [GPU framebuffer snapshotting](https://github.com/raspberrypi/userland/issues/440). (If you ran fbcp-ili9341 as a static library bypassing DispmanX and the GPU stack, directly linking your GPIO input and application logic into fbcp-ili9341, you would be able to get down to this few msecs of overall latency, like shown in the above GPIO input video)
-
-Interestingly, fbcp-ili9341 is about [~33msecs faster than a cheap 3.5" KeDei HDMI display](https://www.youtube.com/watch?v=1yvmvv0KtNs). I do not know if this is a result of the KeDei HDMI display specifically introducing extra latency, or if all HDMI displays connected to the Pi would have similar latency overhead. An interesting question is also how SPI would compare with DPI connected displays on the Pi.
 
 ### About Tearing
 
 Unfortunately a limitation of SPI connected displays is that the VSYNC line signal is not available on the display controllers when they are running in SPI mode, so it is not possible to do vsync locked updates even if the SPI bus bandwidth on the display was fast enough. For example, the 4 ILI9341 displays I have can all be run faster than 75MHz so SPI bus bandwidth-wise all of them would be able to update a full frame in less than a vsync interval, but it is not possible to synchronize the updates to vsync since the display controllers do not report it. (If you do know of a display that does actually expose a vsync clock signal even in SPI mode, you can try implementing support to locking on to it)
 
-You can however choose between two distinct types of tearing artifacts: *straight line tearing* and *diagonal tearing*. Whichever looks better is a bit subjective, which is why both options exist. I prefer the straight line tearing artifact, it seems to be less intrusive than the diagonal tearing one. To toggle this, edit the option `#define DISPLAY_FLIP_ORIENTATION_IN_SOFTWARE` in `config.h`. When this option is enabled, fbcp-ili9341 produces straight line tearing, and consumes a tiny few % more CPU power. By default Pi 3B builds with straight line tearing, and Pi Zero with the faster diagonal tearing. Check out the video [Latency and tearing test #2: GPIO input to display latency in fbcp-ili9341 and tearing modes](https://www.youtube.com/watch?v=EOICdpjiqv8) to see in slow motion videos how these two tearing modes look like.
+You can however choose between two distinct types of tearing artifacts: *straight line tearing* and *diagonal tearing*. Whichever looks better is a bit subjective, which is why both options exist. I prefer the straight line tearing artifact, it seems to be less intrusive than the diagonal tearing one. To toggle this, edit the option `#define DISPLAY_FLIP_ORIENTATION_IN_SOFTWARE` in `config.h`. When this option is enabled, fbcp-ili9341 produces straight line tearing, and consumes a tiny few % more CPU power. By default Pi 3B builds with straight line tearing, and Pi Zero with the faster diagonal tearing. 
 
 Another option that is known to affect how the tearing artifact looks like is the internal panel refresh rate. For ILI9341 displays this refresh rate can be adjusted in `ili9341.h`, and this can be set to range between `ILI9341_FRAMERATE_61_HZ` and `ILI9341_FRAMERATE_119_HZ` (default). Slower refresh rates produce less tearing, but have higher input-to-display latency, whereas higher refresh rates will result in the opposite. Again visually the resulting effect is a bit subjective.
 
-To get tearing free updates, you should use a DPI display, or a good quality HDMI display. Beware that [cheap small 3.5" HDMI displays such as KeDei do also tear](https://www.youtube.com/watch?v=1yvmvv0KtNs) - that is, even if they are controlled via HDMI, they don't actually seem to implement VSYNC timed internal operation.
-
 ### About Smoothness
 
-Having no vsync is not all bad though, since with the lack of vsync, SPI displays have the opportunity to obtain smoother animation on content that is not updating at 60Hz. It is possible that content on the SPI display will stutter even less than what DPI or HDMI displays on the Pi can currently provide (although I have not been able to test this in detail, except for the KeDei case above).
+Having no vsync is not all bad though, since with the lack of vsync, SPI displays have the opportunity to obtain smoother animation on content that is not updating at 60Hz. It is possible that content on the SPI display will stutter even less than what DPI or HDMI displays on the Pi can currently provide (although I have not been able to test this in detail).
 
 The main option that affects smoothness of display updates is the `#define USE_GPU_VSYNC` line in `config.h`. If this is enabled, then the internal Pi GPU HDMI vsync clock is used to drive frames onto the display. The Pi GPU clock runs at a fixed rate that is independent of the content. This rate can be discovered by running `tvservice -s` on the Pi console, and is usually 59Hz or 60Hz. If your application renders at this rate, animation will look smooth, but if not, there will be stuttering. For example playing a PAL NES game that updates at 50Hz with HDMI clock set at 60Hz will cause bad microstuttering in video output if `#define USE_GPU_VSYNC` is enabled.
 
-If `USE_GPU_VSYNC` is disabled, then a busy spinning GPU frame snapshotting thread is used to drive the updates. This will produce smoother animation in content that does not maintain a fixed 60Hz rate. Especially in OpenTyrian, a game that renders at a fixed 36fps and has slowly scrolling scenery, the stuttering caused by `USE_GPU_VSYNC` is particularly visible. Running on Pi 3B without `USE_GPU_VSYNC` enabled produces visually smoother looking scrolling on an Adafruit 2.8" ILI9341 PiTFT set to update at 119Hz, compared to enabling `USE_GPU_VSYNC` on the same setup. Without `USE_GPU_VSYNC`, the dedicated frame polling loop thread "finds" the 36Hz update rate of the game, and then pushes pixels to the display at this exact rate. This works nicely since SPI displays disregard vsync - the result is that frames are pushed out to the SPI display immediately as they become available, instead of pulling them at a fixed 60Hz rate like HDMI does.
+If `USE_GPU_VSYNC` is disabled, then a busy spinning GPU frame snapshotting thread is used to drive the updates. This will produce smoother animation in content that does not maintain a fixed 60Hz rate. Especially in OpenTyrian, a game that renders at a fixed 36fps and has slowly scrolling scenery, the stuttering caused by `USE_GPU_VSYNC` is particularly visible. Running on Pi 3B without `USE_GPU_VSYNC` enabled produces visually smoother looking scrolling on an ILI9341 PiTFT set to update at 119Hz, compared to enabling `USE_GPU_VSYNC` on the same setup. Without `USE_GPU_VSYNC`, the dedicated frame polling loop thread "finds" the 36Hz update rate of the game, and then pushes pixels to the display at this exact rate. This works nicely since SPI displays disregard vsync - the result is that frames are pushed out to the SPI display immediately as they become available, instead of pulling them at a fixed 60Hz rate like HDMI does.
 
 A drawback is that this kind of polling consumes more CPU time than the vsync option. The extra overhead is around +34% of CPU usage compared to the vsync method. It also requires using a background thread, and because of this, it is not feasible to be used on a single core Pi Zero. [If this polling was unnecessary](https://github.com/raspberrypi/userland/issues/440), this mode would also work on a Pi Zero, and without the added +34% CPU overhead on Pi 3B. See the Known Issues section below for more details.
 
 ![PiTFT display](/framerate_smoothness.jpg "Smoothness statistics")
 
-There are two other main options that affect frame delivery timings, `#define SELF_SYNCHRONIZE_TO_GPU_VSYNC_PRODUCED_NEW_FRAMES` and `#define SAVE_BATTERY_BY_PREDICTING_FRAME_ARRIVAL_TIMES`. Check out the video [fbcp-ili9341 frame delivery smoothness test on Pi 3B and Adafruit ILI9341 at 119Hz](https://youtu.be/IqzKT33Rwjc) for a detailed side by side comparison of these different modes. The conclusions drawn from the four tested scenarios in the video are:
+There are two other main options that affect frame delivery timings, `#define SELF_SYNCHRONIZE_TO_GPU_VSYNC_PRODUCED_NEW_FRAMES` and `#define SAVE_BATTERY_BY_PREDICTING_FRAME_ARRIVAL_TIMES`. The conclusions drawn from the four tested scenarios in the video are:
 
 **1. vc_dispmanx_vsync_callback() (top left)**, set `#define USE_GPU_VSYNC` and unset `#define SELF_SYNCHRONIZE_TO_GPU_VSYNC_PRODUCED_NEW_FRAMES`:
 
@@ -436,7 +412,6 @@ Perhaps. This is a more recent experimental feature that may not be as stable, a
 Current limitations of 3-wire communication are:
  - The performance option `ALL_TASKS_SHOULD_DMA` is currently not supported, there is an issue with DMA chaining that prevents this from being enabled. As result, CPU usage on 3-wire displays will be slightly higher than on 4-wire displays.
  - The performance option `OFFLOAD_PIXEL_COPY_TO_DMA_CPP` is currently not supported. As a result, 3-wire displays may not work that well on single core Pis like Pi Zero.
- - This has only been tested on my Adafruit SSD1351 128x96 RGB OLED display, which can be soldered to operate in 3-wire SPI mode, so testing has not been particularly extensive.
  - Displays that have a 16-bit wide command word, such as ILI9486, do not currently work in 3-wire ("17-bit") mode. (But ILI9486L has 8-bit command word, so that does work)
 
 #### Does fbcp-ili9341 work with I2C, DPI, MIPI DSI or USB connected displays?
@@ -531,38 +506,21 @@ You can also try looking through the commit history to find changes related to y
 
 First, make sure the display is a 4-wire SPI and not a 3-wire one. A display is 4-wire SPI if it has a Data/Control (DC) GPIO line that needs connecting. Sometimes the D/C pin is labeled RS (Register Select). Support for 3-wire SPI displays does exist, but it is experimental and not nearly as well tested as 4-wire displays.
 
-Second is the consideration about display speed. Below is a performance chart of the different displays I have tested. Note that these are sample sizes of one, I don't know how much sample variance there exists. Also I don't know if it is likely that there exists big differences between displays with same controller from different manufacturers. At least the different ILI9341 displays that I have are all quite consistent on performance, whether they are from Adafruit or WaveShare or from BuyDisplay.com.
+Second is the consideration about display speed. Below is a performance chart of the different displays I have tested. Note that these are sample sizes of one, I don't know how much sample variance there exists. Also I don't know if it is likely that there exists big differences between displays with same controller from different manufacturers. 
 
 | Vendor | Size | Resolution | Controller | Rated SPI Bus Speed | Obtained Bus Speed | Frame Rate |
 | ------ | ---- | ---------- | ---------- | ------------------- | ------------------ | -----------|
-| [Adafruit PiTFT](https://www.adafruit.com/product/1601) | 2.8" | 240x320 | ILI9341 | 10MHz | 294MHz/4=73.50MHz | 59.81 fps |
-| [Adafruit PiTFT](https://www.adafruit.com/product/2315) | 2.2" | 240x320 | ILI9340 | 15.15MHz | 338MHz/4=84.50MHz | 68.76 fps |
-| [Adafruit PiTFT](https://www.adafruit.com/product/2097) | 3.5" | 320x480 | HX8357D | 15.15MHz | 314MHz/6=52.33MHz | 21.29 fps |
-| [Adafruit OLED](https://www.adafruit.com/product/1673) | 1.27" | 128x96 | SSD1351 |  20MHz | 360MHz/20=18.00MHz | 91.55 fps |
+
 | [Waveshare RPi LCD (B) IPS](https://www.amazon.co.uk/dp/B01N48NOXI/ref=pe_3187911_185740111_TE_item) | 3.5" | 320x480 | ILI9486 | 15.15MHz | 255MHz/8=31.88MHz | 12.97 fps |
-| [maithoga TFT LCD](https://www.aliexpress.com/item/3-5-inch-8P-SPI-TFT-LCD-Color-Screen-Module-ILI9486-Drive-IC-320-480-RGB/32828284227.html) | 3.5" | 320x480 | ILI9486L | 15.15MHz | 400MHz/8=50.00MHz | 13.56 fps* |
-| [BuyDisplay.com SPI TFT](https://www.buydisplay.com/default/serial-spi-3-2-inch-tft-lcd-module-display-ili9341-power-than-sainsmart) copy #1 | 3.2" | 240x320 | ILI9341 | 10MHz | 310MHz/4=77.50MHz | 63.07 fps |
-| [BuyDisplay.com SPI TFT](https://www.buydisplay.com/default/serial-spi-3-2-inch-tft-lcd-module-display-ili9341-power-than-sainsmart) copy #2 | 3.2" | 240x320 | ILI9341 | 10MHz | 300MHz/4=75.00MHz | 61.03 fps |
-| [Arduino A000096 LCD](https://store.arduino.cc/arduino-lcd-screen) | 1.77" | 128x160 | ST7735R | 15.15MHz | 355MHz/6=59.16MHz | 180.56 fps |
-| [Tontec MZ61581-PI-EXT 2016.1.28](https://www.ebay.com/p/Tontec-3-5-Inches-Touch-Screen-for-Raspberry-Pi-Display-TFT-Monitor-480x320-LCD/1649448059) | 3.5" | 320x480 | MZ61581 | 128MHz | 280MHz/2=140.00MHz | 56.97 fps |
-| [Adafruit 240x240 Wide Angle TFT](https://www.adafruit.com/product/3787) | 1.54" | 240x240 | ST7789 | ? | 340MHz/4=85.00MHz | 92.23 fps |
 | [WaveShare 240x240 Display HAT](https://www.waveshare.com/1.3inch-lcd-hat.htm) | 1.3" | 240x240 | ST7789VW | 62.5MHz | 338MHz/4=84.50MHz | 91.69 fps |
 | [WaveShare 128x128 Display HAT](https://www.waveshare.com/1.44inch-lcd-hat.htm) | 1.44" | 128x128 | ST7735S | 15.15MHz | (untested) | (untested) |
-| [KeDei v6.3](https://github.com/juj/fbcp-ili9341/issues/40) | 3.5" | 320x480 | MPI3501 | ? | 400MHz/12=33.333MHz | 4.8fps ** |
+
 
 In this list, *Rated SPI Bus Speed* is the maximum clock speed that the display controller is rated to run at. The *Obtained Bus Speed* column lists the fastest SPI bus speed that was achieved in practice, and the `core_freq` BCM Core speed and SPI Clock Divider `CDIV` setting that was used to achieve that rate. Note how most display controllers can generally be driven much faster than what they are officially rated at in their spec sheets.
 
 The *Frame Rate* column shows the worst case frame rate when full screen updates are being performed. This occurs for example when watching fullscreen video (that is not a flat colored cartoon). Because fbcp-ili9341 only sends over the pixels that have changed, displays such as HX8357D and ILI9486 can still be used to play many games at 60fps. Retro games work especially well.
 
-All the ILI9341 displays work nice and super fast at ~70-80MHz. My WaveShare 3.5" 320x480 ILI9486 display runs really slow compared to its pixel resolution, ~32MHz only. See [fbcp-ili9341 ported to ILI9486 WaveShare 3.5" (B) SpotPear 320x480 SPI display](https://www.youtube.com/watch?v=dqOLIHOjLq4) for a video of this display in action. Adafruit's 320x480 3.5" HX8357D PiTFTs is ~64% faster in comparison.
 
-The ILI9486L controller based maithoga display runs a bit faster than ILI9486 WaveShare, 50MHz versus 31.88MHz, i.e. +56.8% bandwidth increase. However fps-wise maithoga reaches only 13.56 vs WaveShare 12.97 fps, because the bandwidth advantage is fully lost in pixel format differences: ILI9486L requires transmitting 24 bits per each pixel (R6G6B6 mode), whereas ILI9486 supports 16 bits per pixel R5G6B5 mode. This is reflected in the above chart refresh rate for the maithoga display (marked with a star).
-
-If manufacturing variances turn out not to be high between copies, and you'd like to have a bigger 320x480 display instead of a 240x320 one, then it is recommended to avoid ILI9486, they indeed are slow.
-
-The KeDei v6.3 display with MPI3501 controller takes the crown of being horrible, in all aspects imaginable. It is able to run at 33.33 MHz, but due to technical design limitations of the display (see [#40](https://github.com/juj/fbcp-ili9341/issues/40#issuecomment-441480557)), effective bus speed is halved, and only about 72% utilization of the remaining bus rate is achieved. DMA cannot be used, so CPU usage will be off the charts. Even though fbcp-ili9341 supports this display, level of support is expected to be poor, because the hardware design is a closed secret without open documentation publicly available from the manufacturer. Stay clear of KeDei or MPI3501 displays.
-
-The Tontec MZ61581 controller based 320x480 3.5" display on the other hand can be driven insanely fast at up to 140MHz! These seem to be quite hard to come by though and they are expensive. Tontec seems to have gone out of business and for example the domain itontec.com from which the supplied instructions sheet asks to download original drivers from is no longer registered. I was able to find one from eBay for testing.
 
 Search around, or ask the manufacturer of the display what the maximum SPI bus speed is for the device. This is the most important aspect to getting good frame rates, but unfortunately most web links never state the SPI speed rating, or they state it ridiculously low like in the spec sheets. Try and buy to see, or ask in some community forums from people who already have a particular display to find out what SPI bus speed it can achieve.
 
@@ -627,13 +585,13 @@ Fbcp-ili9341 driver is about interfacing with SPI displays. If your display util
 Software-wise, there are two possible alternatives to fbcp-ili9341:
 
 1. [notro/fbtft](https://github.com/notro/fbtft) + [tasanakorn/rpi-fbcp](https://github.com/tasanakorn/rpi-fbcp)
-2. Use an ad hoc drawing library that provides both drawing primitives plus the display interface, e.g. [adafruit/Adafruit_Python_ILI9341](https://github.com/adafruit/Adafruit_Python_ILI9341).
+2. Use an ad hoc drawing library that provides both drawing primitives plus the display interface.
 
 ### Resources
 
 The following links proved helpful when writing this:
  - [ARM BCM2835 Peripherals Manual PDF](https://www.raspberrypi.org/app/uploads/2012/02/BCM2835-ARM-Peripherals.pdf),
- - [ILI9341 Display Controller Manual PDF](https://cdn-shop.adafruit.com/datasheets/ILI9341.pdf),
+ - [ILI9341 Display Controller Manual PDF](https://www.waveshare.net/w/upload/e/e3/ILI9341_DS.pdf),
  - [notro/fbtft](https://github.com/notro/fbtft): Linux Framebuffer drivers for small TFT LCD display modules,
  - [BCM2835 driver](http://www.airspayce.com/mikem/bcm2835/) for Raspberry Pi,
  - [tasanakorn/rpi-fbcp](https://github.com/tasanakorn/rpi-fbcp), original framebuffer driver,
@@ -681,14 +639,3 @@ If you found fbcp-ili9341 useful, it makes me happy to hear back about the proje
 
 I hope you build something you enjoy!
 
-### Donating
-
-I have been occassionally asked how to make a donation as a thank you for the work, so here is a PayPal link:
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=DD8A74WY6Q4L2&currency_code=EUR)
-
-Please note that a contribution is not expected, and you are free to use, publicize and redistribute the driver even without a payment.
-
-### Contacting
-
-Best way to discuss the driver is to open a GitHub issue. You may also be able to find me over at [sudomod.com Discord channel](https://sudomod.com/forum/viewtopic.php?f=42&t=438&sid=b868bb95ab5c3035b7810c71278637c6).
